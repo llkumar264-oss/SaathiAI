@@ -29,6 +29,7 @@ if (typeof window !== 'undefined') {
     value: localStorageMock,
     writable: true,
   });
+  window.Element.prototype.scrollIntoView = () => {};
 }
 
 import i18n from './i18n';
