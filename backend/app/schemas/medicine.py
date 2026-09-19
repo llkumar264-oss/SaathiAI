@@ -24,6 +24,21 @@ class MedicineResponse(MedicineBase):
     created_at: str
 
 
+class GeminiExtractedMedicine(BaseModel):
+    name: str = Field(description="Medicine brand or generic name")
+    dosage: str = Field(description="Strength or quantity (e.g. 5mg, 500mg, 1 tab)")
+    frequency: str = Field(description="Frequency description (e.g. 'Once daily after breakfast')")
+    timing: str = Field(description="Scheduled time(s) e.g. '08:30' or '08:30, 20:30'")
+    purpose: str = Field(description="Plain-language explanation of what this medicine is for")
+    instructions: str = Field(description="Precautions or meal instructions")
+
+
+class GeminiPrescriptionExtraction(BaseModel):
+    medicines: List[GeminiExtractedMedicine] = Field(description="Structured list of extracted medicines")
+    doctor_notes: str = Field(description="Any advice or special instructions extracted")
+    extracted_date: str = Field(description="Date on prescription if found")
+
+
 class PrescriptionExtractionResponse(BaseModel):
     medicines: List[MedicineBase] = Field(..., description="Structured list of extracted medicines")
     doctor_notes: Optional[str] = Field(default="", description="Any advice or special instructions extracted")

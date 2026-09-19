@@ -5,11 +5,7 @@ import {
   Mic,
   MicOff,
   ArrowLeft,
-  Music,
-  Heart,
-  Volume2,
   X,
-  Sparkles,
 } from 'lucide-react';
 import { useSpeechRecognition } from '../../hooks/useSpeechRecognition';
 
@@ -119,7 +115,7 @@ export const BhajanHub: React.FC<BhajanHubProps> = ({ onBack }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const { isListening, transcript, startListening, stopListening, isSupported } =
-    useSpeechRecognition();
+    useSpeechRecognition('hi-IN');
 
   // Fetch curated bhajans on load
   const fetchBhajans = async (cat: string, search: string = '') => {
@@ -165,7 +161,7 @@ export const BhajanHub: React.FC<BhajanHubProps> = ({ onBack }) => {
     if (isListening) {
       stopListening();
     } else {
-      startListening('hi-IN');
+      startListening();
     }
   };
 

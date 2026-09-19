@@ -96,7 +96,9 @@ def create_app() -> FastAPI:
 
     if static_dir:
         logger.info("Serving static frontend from: %s", static_dir)
-        app.mount("/assets", StaticFiles(directory=str(static_dir / "assets")), name="assets")
+        assets_dir = static_dir / "assets"
+        if assets_dir.exists():
+            app.mount("/assets", StaticFiles(directory=str(assets_dir)), name="assets")
 
         @app.get("/{full_path:path}", include_in_schema=False)
         async def serve_spa(full_path: str):

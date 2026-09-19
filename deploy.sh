@@ -14,29 +14,29 @@ echo " Deploying SaathiAI to Google Cloud Run"
 echo " Project: $PROJECT_ID | Region: $REGION"
 echo "============================================================"
 
-# Check for GEMINI_API_KEY secret in Secret Manager
-if ! gcloud secrets describe GEMINI_API_KEY --project="$PROJECT_ID" >/dev/null 2>&1; then
-  echo "Error: GEMINI_API_KEY secret not found in Secret Manager!"
-  echo "Create it first with:"
-  echo "  gcloud secrets create GEMINI_API_KEY --replication-policy=automatic"
-  echo "  printf '%s' '\$YOUR_KEY' | gcloud secrets versions add GEMINI_API_KEY --data-file=-"
-  exit 1
+# Check for GEMINI_API_KEY secret in Secret Manager or environment
+DEPLOY_SECRET_FLAG=""
+DEPLOY_ENV_VARS="GEMINI_MODEL=$GEMINI_MODEL,ENVIRONMENT=prod,ALLOW_DEV_TOKENS=false"
+
+if gcloud secrets describe GEMINI_API_KEY --project="$PROJECT_ID" >/dev/null 2>&1; then
+  echo "Found GEMINI_API_KEY in Secret Manager. Using Secret Manager..."
+  DEPLOY_SECRET_FLAG="--set-secrets GEMINI_API_KEY=GEMINI_API_KEY:latest"
+elif [ -n "${GEMINI_API_KEY:-}" ]; then
+  echo "Using GEMINI_API_KEY from environment..."
+  DEPLOY_ENV_VARS="$DEPLOY_ENV_VARS,GEMINI_API_KEY=$GEMINI_API_KEY"
+else
+  echo "WARNING: GEMINI_API_KEY not found in Secret Manager or environment."
+  echo "You can set it via Secret Manager or export GEMINI_API_KEY=your_key"
 fi
 
 echo "Building container and deploying to Cloud Run..."
-
-# NOTE ON RATE LIMITING & SCALING:
-# SaathiAI uses an in-memory sliding window rate limiter (slowapi) per instance.
-# --max-instances is set to 10 to balance cost and traffic surges.
-# For distributed multi-instance rate limiting across multiple instances,
-# configure Redis (Google Cloud Memorystore) by setting REDIS_URL in Secret Manager.
 
 gcloud run deploy "$SERVICE_NAME" \
   --source . \
   --region "$REGION" \
   --allow-unauthenticated \
-  --set-secrets GEMINI_API_KEY=GEMINI_API_KEY:latest \
-  --set-env-vars GEMINI_MODEL="$GEMINI_MODEL",ENVIRONMENT=prod,ALLOW_DEV_TOKENS=false \
+  ${DEPLOY_SECRET_FLAG} \
+  --set-env-vars "$DEPLOY_ENV_VARS" \
   --min-instances 1 \
   --max-instances 10 \
   --memory 1Gi \

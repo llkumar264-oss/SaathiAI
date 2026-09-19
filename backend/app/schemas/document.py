@@ -15,6 +15,18 @@ class DeadlineItem(BaseModel):
     converted_to_reminder: bool = Field(default=False)
 
 
+class GeminiDeadlineItem(BaseModel):
+    title: str = Field(description="What the deadline is for, e.g. 'Bill Payment Due Date'")
+    due_date: str = Field(description="Date formatted as YYYY-MM-DD or clear string")
+
+
+class GeminiDocumentSections(BaseModel):
+    summary: str = Field(description="Clear, plain Hindi/English 2-3 sentence overview of the document")
+    important_numbers: List[ImportantNumberItem] = Field(description="All key monetary amounts and account/consumer numbers")
+    deadlines: List[GeminiDeadlineItem] = Field(description="Due dates, expiry dates, or hearing dates")
+    next_steps: List[str] = Field(description="Actionable, senior-friendly instructions on what to do next")
+
+
 class DocumentSections(BaseModel):
     summary: str = Field(..., description="Clear, plain Hindi/English 2-3 sentence overview of the document")
     important_numbers: List[ImportantNumberItem] = Field(default_factory=list, description="All key monetary amounts and account/consumer numbers")
