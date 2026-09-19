@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Default: Deny all access
+    match /{document=**} {
+      allow read, write: if false;
+    }
+    
+    // User-scoped personal data (Meds, Vitals, History, Settings, Documents)
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+      
+      match /{subcollection=**} {
+        allow read, write: if request.auth != null && request.auth.uid == userId;
+      }
+    }
+    
+    // Family shared summaries (Read-only for invited family members)
+    match /users/{userId}/family_shares/{shareId} {
+      allow read: if request.auth != null && (
+        request.auth.uid == userId ||
+        request.auth.token.email in resource.data.allowed_emails ||
+        request.auth.uid in resource.data.allowed_uids
+      );
+      allow write: if request.auth != null && request.auth.uid == userId;
+    }
+  }
+}

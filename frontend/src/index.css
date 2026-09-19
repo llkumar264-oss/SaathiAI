@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-scale: 1.125rem; /* 18px base senior font */
+    --line-height-scale: 1.65;
+  }
+
+  html {
+    font-size: var(--font-scale);
+    line-height: var(--line-height-scale);
+    font-family: 'Atkinson Hyperlegible', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Accessible focus indicators */
+  *:focus-visible {
+    outline: 3px solid #E36414 !important;
+    outline-offset: 3px !important;
+  }
+
+  /* High contrast mode overrides */
+  .high-contrast {
+    background-color: #000000 !important;
+    color: #FFFF00 !important;
+  }
+
+  .high-contrast * {
+    border-color: #FFFF00 !important;
+  }
+
+  .high-contrast button {
+    background-color: #000000 !important;
+    color: #FFFF00 !important;
+    border: 2px solid #FFFF00 !important;
+  }
+
+  .high-contrast button:hover {
+    background-color: #FFFF00 !important;
+    color: #000000 !important;
+  }
+
+  .high-contrast input, .high-contrast textarea {
+    background-color: #121212 !important;
+    color: #FFFFFF !important;
+    border: 2px solid #FFFF00 !important;
+  }
+
+  /* Respect user's reduced motion settings */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* Touch targets >= 48px */
+.touch-target {
+  min-height: 48px;
+  min-width: 48px;
+}
+
+/* Card glass / soft styling */
+.senior-card {
+  @apply bg-white rounded-2xl border border-teal-deep/10 shadow-senior transition-all duration-200;
+}
+
+.senior-card-hover {
+  @apply hover:shadow-senior-hover hover:border-teal-deep/20;
+}

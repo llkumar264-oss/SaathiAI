@@ -1,0 +1,17 @@
+.git
+.gitignore
+.dockerignore
+.env
+.env.*
+node_modules
+frontend/node_modules
+frontend/src
+frontend/public
+backend/tests
+ml/data
+.pytest_cache
+.coverage
+htmlcov
+__pycache__
+*.pyc
+README.md
