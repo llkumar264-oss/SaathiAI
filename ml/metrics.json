@@ -1,0 +1,24 @@
+{
+  "model_type": "TF-IDF + Calibrated Classifier",
+  "target_met": true,
+  "benchmark_sms_test": {
+    "sample_count": 20,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "synthetic_indian_scam_test": {
+    "sample_count": 18,
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  },
+  "overall_test": {
+    "accuracy": 1.0,
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1": 1.0
+  }
+}
