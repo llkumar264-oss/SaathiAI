@@ -24,6 +24,7 @@ from backend.app.api.routes.documents import router as documents_router
 from backend.app.api.routes.morning_brief import router as morning_brief_router
 from backend.app.api.routes.vitals import router as vitals_router
 from backend.app.api.routes.tutor import router as tutor_router
+from backend.app.api.routes.family import router as family_router
 
 # Configure structured logger
 logging.basicConfig(
@@ -77,6 +78,7 @@ def create_app() -> FastAPI:
     app.include_router(morning_brief_router)
     app.include_router(vitals_router)
     app.include_router(tutor_router)
+    app.include_router(family_router)
 
     # Static File Serving for Single-Container React Frontend
     static_dirs = [
