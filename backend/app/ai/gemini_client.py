@@ -52,6 +52,26 @@ class GeminiClient:
             except Exception as e:
                 logger.warning("Could not initialize google-genai client, falling back to mock mode: %s", e)
 
+    @property
+    def mock_mode(self) -> bool:
+        """Whether client is operating in deterministic mock/test mode."""
+        return self.settings.GEMINI_MOCK or self._live_client is None
+
+    async def generate_text(self, prompt: str) -> str:
+        """Generate single complete text response from Gemini (or deterministic mock)."""
+        if self.mock_mode:
+            return "चिंता मत कीजिए शर्मा जी! स्क्रीन के बीच में दिए गए बटन पर हल्के से टैप करें।"
+
+        try:
+            res = await self._live_client.aio.models.generate_content(
+                model=self.settings.GEMINI_MODEL,
+                contents=prompt,
+            )
+            return res.text or ""
+        except Exception as exc:
+            logger.error("Live generate_text failed: %s", exc)
+            return "चिंता मत कीजिए शर्मा जी! स्क्रीन के बीच में दिए गए बटन पर हल्के से टैप करें।"
+
     async def stream_chat(
         self,
         prompt: str,
