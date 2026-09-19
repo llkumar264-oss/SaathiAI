@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   Pill,
   Camera,
@@ -35,7 +34,6 @@ interface AdherenceStats {
 }
 
 export const MedicineManager: React.FC<{ onBack: () => void }> = ({ onBack }) => {
-  const { t } = useTranslation();
   const { token } = useAuth();
 
   const [medicines, setMedicines] = useState<Medicine[]>([]);
