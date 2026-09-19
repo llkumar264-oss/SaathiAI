@@ -197,7 +197,7 @@ export const MedicineManager: React.FC<{ onBack: () => void }> = ({ onBack }) =>
           className="touch-target flex items-center space-x-2 px-4 py-2 bg-white rounded-xl border border-gray-200 text-teal-deep font-bold hover:bg-gray-50 shadow-sm"
         >
           <ArrowLeft className="w-5 h-5" />
-          <span>{t('common.back')}</span>
+          <span>वापस डैशबोर्ड (Back)</span>
         </button>
         <h2 className="text-2xl font-bold text-teal-deep">दवाइयां और दिनचर्या (Medicines)</h2>
         <div className="w-10" />

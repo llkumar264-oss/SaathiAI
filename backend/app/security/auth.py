@@ -42,7 +42,7 @@ def _init_firebase(settings: Settings) -> None:
 
 def is_dev_token(token: str) -> bool:
     """Check if token matches the development/testing token prefix."""
-    return token.startswith("dev-") or token.startswith("guest-") or token == "test-token"
+    return token.startswith("dev-") or token.startswith("guest-") or token == "test-token"  # nosec B105
 
 
 async def get_current_user(
