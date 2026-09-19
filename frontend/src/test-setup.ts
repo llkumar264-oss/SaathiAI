@@ -32,6 +32,32 @@ if (typeof window !== 'undefined') {
   window.Element.prototype.scrollIntoView = () => {};
 }
 
+// Mock SpeechSynthesisUtterance for testing
+class MockSpeechSynthesisUtterance {
+  text: string;
+  lang: string = 'hi-IN';
+  rate: number = 1.0;
+  voice: any = null;
+  onstart: (() => void) | null = null;
+  onend: (() => void) | null = null;
+  onerror: (() => void) | null = null;
+
+  constructor(text: string = '') {
+    this.text = text;
+  }
+}
+
+Object.defineProperty(globalThis, 'SpeechSynthesisUtterance', {
+  value: MockSpeechSynthesisUtterance,
+  writable: true,
+});
+if (typeof window !== 'undefined') {
+  Object.defineProperty(window, 'SpeechSynthesisUtterance', {
+    value: MockSpeechSynthesisUtterance,
+    writable: true,
+  });
+}
+
 import i18n from './i18n';
 
 // Set language to English for deterministic testing
