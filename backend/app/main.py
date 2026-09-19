@@ -20,6 +20,7 @@ from backend.app.api.routes.auth import router as auth_router
 from backend.app.api.routes.chat import router as chat_router
 from backend.app.api.routes.medicines import router as medicines_router
 from backend.app.api.routes.scam import router as scam_router
+from backend.app.api.routes.documents import router as documents_router
 
 # Configure structured logger
 logging.basicConfig(
@@ -69,6 +70,7 @@ def create_app() -> FastAPI:
     app.include_router(chat_router)
     app.include_router(medicines_router)
     app.include_router(scam_router)
+    app.include_router(documents_router)
 
     # Static File Serving for Single-Container React Frontend
     static_dirs = [
