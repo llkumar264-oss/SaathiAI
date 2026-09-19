@@ -20,6 +20,20 @@ logger = logging.getLogger("saathi.services.companion")
 # Maps session_id -> list of turns [{"role": "user"|"model", "text": "...", "timestamp": "..."}]
 _CONVERSATION_HISTORY: Dict[str, List[Dict[str, Any]]] = {}
 _USER_SUMMARIZED_PROFILES: Dict[str, str] = {}
+_USER_SHARED_CONTEXT: Dict[str, Dict[str, Any]] = {}
+
+
+def update_user_context(user_id: str, updates: Dict[str, Any]) -> Dict[str, Any]:
+    """Update shared user context that Saathi reads across all modules."""
+    if user_id not in _USER_SHARED_CONTEXT:
+        _USER_SHARED_CONTEXT[user_id] = {}
+    _USER_SHARED_CONTEXT[user_id].update(updates)
+    return _USER_SHARED_CONTEXT[user_id]
+
+
+def get_user_context(user_id: str) -> Dict[str, Any]:
+    """Retrieve shared cross-module context for a user."""
+    return _USER_SHARED_CONTEXT.get(user_id, {})
 
 
 class CompanionService:

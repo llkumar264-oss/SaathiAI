@@ -32,6 +32,17 @@ if (typeof window !== 'undefined') {
   window.Element.prototype.scrollIntoView = () => {};
 }
 
+// Polyfill ResizeObserver for Recharts
+class MockResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+globalThis.ResizeObserver = MockResizeObserver;
+if (typeof window !== 'undefined') {
+  window.ResizeObserver = MockResizeObserver;
+}
+
 // Mock SpeechSynthesisUtterance for testing
 class MockSpeechSynthesisUtterance {
   text: string;
