@@ -64,6 +64,14 @@
 - **Cached Once Daily**: Reduces cognitive load and API latency by caching the briefing for the day.
 - **Audio Read-Aloud**: Full speech synthesis audio playback with one tap.
 
+### 9. 🪔 Bhajan & Devotional Hub (YouTube Player)
+- **1-Tap Spiritual Streaming**: Curated popular bhajans (Hanuman Chalisa, Gayatri Mantra, Krishna Bhajans, Shiv Tandav, Aarti, Lata Mangeshkar evergreen classics).
+- **Zero-Ad Privacy Player**: Uses `youtube-nocookie.com` embed for clean playback without trackers or intrusive ads.
+- **Voice & Keyword Search**: Seniors can speak in Hindi (*"हनुमान चालीसा"*) or type to find any bhajan, katha, or song via YouTube Data API v3.
+- **AI Companion Action Tool**: Saathi can play videos autonomously via Gemini Function Calling (`play_youtube_video`).
+
+> 🚀 **API Setup Guide**: Detailed instructions on adding your free Gemini API Key and YouTube Data API Key are available in [GEMINI_AND_YOUTUBE_API_GUIDE.md](GEMINI_AND_YOUTUBE_API_GUIDE.md).
+
 ---
 
 ## 🏗️ Architecture & Technology Stack

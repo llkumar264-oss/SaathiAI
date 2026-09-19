@@ -36,6 +36,7 @@ ACTION_PATTERNS = [
     r"\b(bill|bijli|electricity|document|kaghaz|parcha)\b",
     r"\b(family|beta|beti|bacche|pariwar|sos|emergency|112)\b",
     r"\b(tutorial|seekhna|kaise karein|how to|shikhao|step|upi|whatsapp)\b",
+    r"\b(bhajan|aarti|chalisa|mantra|stuti|kirtan|gana|geet|youtube|video|play|sunao|chalao)\b",
 ]
 
 

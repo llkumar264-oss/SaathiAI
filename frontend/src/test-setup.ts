@@ -30,6 +30,7 @@ if (typeof window !== 'undefined') {
     writable: true,
   });
   window.Element.prototype.scrollIntoView = () => {};
+  window.scrollTo = () => {};
 }
 
 // Polyfill ResizeObserver for Recharts

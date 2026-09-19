@@ -218,6 +218,22 @@ class GeminiClient:
             }
             return
 
+        # Action: YouTube Bhajan / Devotional video
+        if any(w in lower for w in ["bhajan", "aarti", "chalisa", "youtube", "gana", "geet", "mantra", "pravachan", "kirtan"]):
+            yield {
+                "type": "tool_call",
+                "tool_name": "play_youtube_video",
+                "args": {
+                    "query": prompt,
+                    "category": "bhajan",
+                },
+            }
+            yield {
+                "type": "text",
+                "text": "मैंने आपके लिए पावन भजन खोज लिया है। आप नीचे दिए गए प्लेयर पर टैप करके सुन सकते हैं।",
+            }
+            return
+
         # Grounding: Schemes / Weather
         if intent == QueryIntent.GROUNDED_SEARCH:
             yield {

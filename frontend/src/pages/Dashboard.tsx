@@ -12,6 +12,7 @@ import { TechTutor } from '../features/tutor/TechTutor';
 import { FamilyCircle } from '../features/family/FamilyCircle';
 import { SOSButton } from '../features/family/SOSButton';
 import { SaathiChatModal } from '../features/chat/SaathiChatModal';
+import { BhajanHub } from '../features/bhajan/BhajanHub';
 
 export type ActiveDashboardView =
   | 'home'
@@ -20,7 +21,8 @@ export type ActiveDashboardView =
   | 'vitals'
   | 'documents'
   | 'tutor'
-  | 'family';
+  | 'family'
+  | 'bhajan';
 
 export const Dashboard: React.FC = () => {
   const { user, logout } = useAuth();
@@ -95,6 +97,15 @@ export const Dashboard: React.FC = () => {
     return (
       <div className="min-h-screen bg-cream-50 dark:bg-slate-950 p-4 sm:p-6 pb-28">
         <FamilyCircle onBack={() => setActiveView('home')} />
+        <SaathiChatModal isOpen={chatOpen} onClose={() => setChatOpen(false)} />
+      </div>
+    );
+  }
+
+  if (activeView === 'bhajan') {
+    return (
+      <div className="min-h-screen bg-cream-50 dark:bg-slate-950 p-4 sm:p-6 pb-28">
+        <BhajanHub onBack={() => setActiveView('home')} />
         <SaathiChatModal isOpen={chatOpen} onClose={() => setChatOpen(false)} />
       </div>
     );
@@ -356,6 +367,33 @@ export const Dashboard: React.FC = () => {
             <div className="mt-6 flex items-center text-teal-700 dark:text-teal-400 font-bold text-sm">
               <span>परिवार घेरा खोलें</span>
               <span className="ml-1 transition transform group-hover:translate-x-1">→</span>
+            </div>
+          </button>
+
+          {/* Tile 7: Bhajan & Spiritual Hub */}
+          <button
+            onClick={() => setActiveView('bhajan')}
+            className="text-left p-6 sm:p-7 rounded-3xl bg-white dark:bg-slate-900 border-2 border-amber-200 dark:border-slate-800 shadow-sm hover:shadow-md hover:border-amber-500 transition flex flex-col justify-between group md:col-span-2 lg:col-span-3 bg-gradient-to-r from-amber-50/70 via-orange-50/40 to-amber-50/70 dark:from-slate-900 dark:to-slate-800"
+          >
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full">
+              <div>
+                <div className="flex items-center gap-3 mb-2">
+                  <span className="text-4xl">🪔</span>
+                  <span className="text-xs font-black uppercase text-amber-800 dark:text-amber-300 bg-amber-200 dark:bg-amber-950 px-3 py-1 rounded-full">
+                    दैनिक सुकून व भक्ति धारा 🌸
+                  </span>
+                </div>
+                <h2 className="text-2xl font-black text-slate-900 dark:text-white group-hover:text-amber-700 dark:group-hover:text-amber-400 transition">
+                  भजन एवं सत्संग (Bhajans & Devotion)
+                </h2>
+                <p className="text-sm sm:text-base text-slate-600 dark:text-slate-400 mt-1.5 leading-relaxed max-w-2xl">
+                  श्री हनुमान चालीसा, गायत्री मंत्र, कृष्ण भजन व लता जी के सदाबहार पुराने गीत एक टैप में सुनें। बोलकर भी कोई भी भजन या गाना खोज सकते हैं।
+                </p>
+              </div>
+              <div className="flex items-center text-amber-800 dark:text-amber-400 font-extrabold text-base bg-white dark:bg-slate-800 px-5 py-3 rounded-2xl border border-amber-300 dark:border-slate-700 shadow-sm flex-shrink-0 group-hover:bg-amber-600 group-hover:text-white transition">
+                <span>भजन सुनें (Listen Now)</span>
+                <span className="ml-2 transition transform group-hover:translate-x-1">→</span>
+              </div>
             </div>
           </button>
         </section>

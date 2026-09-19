@@ -34,6 +34,10 @@ class Settings(BaseSettings):
         default=False,
         description="Deterministic mock mode for offline testing and CI"
     )
+    YOUTUBE_API_KEY: str = Field(
+        default="",
+        description="Optional YouTube Data API v3 key for real-time video search"
+    )
 
     # Firebase
     FIREBASE_PROJECT_ID: str = Field(

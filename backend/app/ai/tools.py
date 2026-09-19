@@ -57,6 +57,11 @@ class StartTutorialArgs(BaseModel):
     topic: str = Field(..., description="Topic, e.g. 'upi_payment', 'whatsapp_video_call', 'digilocker', 'irctc'")
 
 
+class PlayYouTubeVideoArgs(BaseModel):
+    query: str = Field(..., description="Name of bhajan, aarti, mantra, or video to play on YouTube, e.g. 'हनुमान चालीसा', 'गायत्री मंत्र'")
+    category: Optional[str] = Field(default="bhajan", description="'bhajan', 'aarti', 'mantra', 'geet', 'general'")
+
+
 # Gemini Tool Declarations List
 TOOL_DECLARATIONS = [
     {
@@ -108,6 +113,11 @@ TOOL_DECLARATIONS = [
         "name": "start_tutorial",
         "description": "Start an interactive step-by-step tutorial for technology (UPI, WhatsApp video call, tickets).",
         "parameters": StartTutorialArgs.model_json_schema(),
+    },
+    {
+        "name": "play_youtube_video",
+        "description": "Search and play devotional bhajans, aarti, mantras, or music videos on YouTube for senior citizens.",
+        "parameters": PlayYouTubeVideoArgs.model_json_schema(),
     },
 ]
 
